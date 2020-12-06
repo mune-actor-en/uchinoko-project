@@ -4,7 +4,7 @@
 ## Create development environment
 
 ### Execute CRA(create-react-app)
-npx create-react-app uchinoko-app
+`npx create-react-app uchinoko-app`
 ### Configure Firebase Project
 SignIn to your google account
 `fireabase login`
