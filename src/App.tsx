@@ -1,9 +1,10 @@
 import React from 'react';
+import SignUp from './templates/SignUp'
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello, world!!</h1>
+    <div className="App" id="Uchinoko">
+      <SignUp />
     </div>
   );
 }
