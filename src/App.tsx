@@ -4,7 +4,7 @@ import { SignUp } from './templates/index'
 const App: FC = () => {
   return (
     <div className="App" id="Uchinoko">
-      <SignUp />
+      <SignUp email={"foo"} password={"bar"} comfirmPassword={"bar"}/>
     </div>
   );
 }

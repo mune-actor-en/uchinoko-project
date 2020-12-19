@@ -27,9 +27,9 @@ const useStyles = makeStyles(() =>
 );
 
 type Props = {
-  email?: string;
-  password?: string;
-  comfirmPassword?: string;
+  email: string;
+  password: string;
+  comfirmPassword: string;
 };
 
 const SignUp: FC<Props> = ({email, password, comfirmPassword}) => {
