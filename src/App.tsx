@@ -1,7 +1,7 @@
-import React from 'react';
-import SignUp from './templates/SignUp'
+import React,{ FC } from 'react';
+import { SignUp } from './templates/index'
 
-function App() {
+const App: FC = () => {
   return (
     <div className="App" id="Uchinoko">
       <SignUp />

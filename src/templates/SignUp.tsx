@@ -8,8 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-// Logo
-import Logo from './assets/img/icoms/uchinoko-logo.png';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -28,9 +26,13 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type Props = {};
+type Props = {
+  email?: string;
+  password?: string;
+  comfirmPassword?: string;
+};
 
-const SingUp: FC<Props> = ({}) => {
+const SignUp: FC<Props> = ({email, password, comfirmPassword}) => {
   const classes = useStyles();
 
   return (
@@ -48,7 +50,7 @@ const SingUp: FC<Props> = ({}) => {
             fullWidth
             id='email'
             label='Email Address'
-            name='email'
+            name={email}
             autoComplete='email'
             autoFocus
           />
@@ -57,7 +59,7 @@ const SingUp: FC<Props> = ({}) => {
             margin='normal'
             required
             fullWidth
-            name='password'
+            name={password}
             label='Password'
             type='password'
             id='password'
@@ -68,10 +70,10 @@ const SingUp: FC<Props> = ({}) => {
             margin='normal'
             required
             fullWidth
-            name='comfirm password'
+            name={comfirmPassword}
             label='Comfirm Password'
             type='password'
-            id='password'
+            id='comfirm password'
             autoComplete='current-password'
           />
           <Button
@@ -90,4 +92,4 @@ const SingUp: FC<Props> = ({}) => {
   );
 }
 
-export default SingUp;
+export default SignUp;
