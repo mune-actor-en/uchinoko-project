@@ -80,7 +80,7 @@ const SignUp: FC<Props> = ({email, password, comfirmPassword}) => {
             type='submit'
             fullWidth
             variant='contained'
-            color='primary'
+            color='secondary'
             className={classes.submit}
             endIcon={<TouchAppIcon />}
           >
