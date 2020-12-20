@@ -1,9 +1,10 @@
-import React from 'react';
+import React,{ FC } from 'react';
+import { SignUp } from './templates/index'
 
-function App() {
+const App: FC = () => {
   return (
-    <div className="App">
-      <h1>Hello, world!!</h1>
+    <div className="App" id="Uchinoko">
+      <SignUp email={"foo"} password={"bar"} comfirmPassword={"bar"}/>
     </div>
   );
 }
