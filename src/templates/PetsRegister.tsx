@@ -1,8 +1,10 @@
+// React
 import React, { FC, useState, useCallback } from 'react';
+//Material-UI
 import { makeStyles } from "@material-ui/styles";
 import Button from '@material-ui/core/Button';
-
-import PetAvatar from '../components/PetAvatar';
+// components
+import PetAvatar from '../components/UIkit/PetAvatar';
 import TextInput from '../components/UIkit/TextInput';
 import RadioButtons from '../components/UIkit/RadioButtons';
 import DateInput from '../components/UIkit/DateInput';
@@ -17,7 +19,10 @@ const useStyles = makeStyles({
 });
 
 const PetsRegister: FC = () => {
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState({
+        id: '',
+        path: ''
+    });
     const [name, setName] = useState("");
     const [sex, setSex] = useState("female");
     const [recomend, setRecomend] = useState("");

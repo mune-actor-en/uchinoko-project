@@ -17,14 +17,14 @@ const useStyles = makeStyles({
 });
 
 type Props = {
-    label: string,
+    label: string;
     date: {
         year: string;
         month: string;
         day: string;
     }
     // ↓　要修正
-    setDate: any;
+    setDate: Function;
 };
 
 const DateInput: FC<Props> = (props) => {
