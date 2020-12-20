@@ -29,10 +29,9 @@ const useStyles = makeStyles(() =>
 type Props = {
   email: string;
   password: string;
-  comfirmPassword: string;
 };
 
-const SignUp: FC<Props> = ({email, password, comfirmPassword}) => {
+const SignIn: FC<Props> = ({email, password }) => {
   const classes = useStyles();
 
   return (
@@ -40,7 +39,7 @@ const SignUp: FC<Props> = ({email, password, comfirmPassword}) => {
       <CssBaseline />
       <div className={classes.top}>
         <Typography component='h1' variant='h5' align='center'>
-          サインアップ
+          サインイン
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -65,26 +64,15 @@ const SignUp: FC<Props> = ({email, password, comfirmPassword}) => {
             id='password'
             autoComplete='current-password'
           />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            name={comfirmPassword}
-            label='Comfirm Password'
-            type='password'
-            id='comfirm password'
-            autoComplete='current-password'
-          />
           <Button
             type='submit'
             fullWidth
             variant='contained'
-            color='secondary'
+            color='primary'
             className={classes.submit}
             endIcon={<TouchAppIcon />}
           >
-            サインアップ
+            サインイン
           </Button>
         </form>
       </div>
@@ -92,4 +80,4 @@ const SignUp: FC<Props> = ({email, password, comfirmPassword}) => {
   );
 }
 
-export default SignUp;
+export default SignIn;
