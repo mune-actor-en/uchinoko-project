@@ -5,7 +5,7 @@ const App: FC = () => {
   return (
     <div className="App" id="Uchinoko">
       <SignUp email={"foo"} password={"bar"} comfirmPassword={"bar"}/>
-      <SignIn email={"foo"} password={"bar"} comfirmPassword={"bar"} />
+      <SignIn email={"foo"} password={"bar"} />
     </div>
   );
 }

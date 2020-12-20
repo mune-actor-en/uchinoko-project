@@ -29,10 +29,9 @@ const useStyles = makeStyles(() =>
 type Props = {
   email: string;
   password: string;
-  comfirmPassword: string;
 };
 
-const SignIn: FC<Props> = ({email, password, comfirmPassword}) => {
+const SignIn: FC<Props> = ({email, password }) => {
   const classes = useStyles();
 
   return (
@@ -63,17 +62,6 @@ const SignIn: FC<Props> = ({email, password, comfirmPassword}) => {
             label='Password'
             type='password'
             id='password'
-            autoComplete='current-password'
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            name={comfirmPassword}
-            label='Comfirm Password'
-            type='password'
-            id='comfirm password'
             autoComplete='current-password'
           />
           <Button
