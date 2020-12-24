@@ -1,5 +1,5 @@
 import React,{ FC } from 'react';
-import { SignUp,SignIn } from './templates/index'
+import { SignUp, SignIn } from './templates/index'
 
 const App: FC = () => {
   return (
