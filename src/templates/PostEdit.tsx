@@ -1,5 +1,10 @@
 // React
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import React, {
+  ChangeEvent,
+  FC,
+  useEffect,
+  useState,
+} from 'react'
 // Material-UI
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
@@ -10,6 +15,7 @@ import {
   MenuItem,
   Paper,
   Select,
+  TextField,
   Theme,
 } from '@material-ui/core'
 // Icons
@@ -17,7 +23,7 @@ import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 // types
 import { Pet } from '../types'
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     imagePaper: {
       alignItems: 'flex-end',
@@ -38,6 +44,10 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 600,
     },
     formControl: {
+      marginBottom: 16,
+      width: '100%',
+    },
+    textField: {
       width: '100%',
     },
   })
@@ -45,6 +55,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const PostEdit: FC = () => {
   const classes = useStyles()
+  
+  const [description, setDescription] = useState('')
   const [pet, setPet] = useState('')
   const [petList, setPetList] = useState([] as Pet[])
 
@@ -59,6 +71,10 @@ const PostEdit: FC = () => {
 
   const handlePetChange = (event: ChangeEvent<{ value: unknown }>) => {
     setPet(event.target.value as string)
+  }
+
+  const handleDescriptionChange = (event: ChangeEvent<{ value: unknown }>) => {
+    setDescription(event.target.value as string)
   }
 
   return (
@@ -89,6 +105,15 @@ const PostEdit: FC = () => {
             ))}
           </Select>
         </FormControl>
+        <TextField
+          id='description'
+          className={classes.textField}
+          label='推しポイント'
+          multiline
+          rows={4}
+          value={description}
+          onChange={handleDescriptionChange}
+        />
       </div>
     </Container>
   )
