@@ -44,10 +44,11 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 600,
     },
     formControl: {
-      marginBottom: 16,
+      marginBottom: 24,
       width: '100%',
     },
     textField: {
+      marginBottom: 24,
       width: '100%',
     },
   })
@@ -59,6 +60,7 @@ const PostEdit: FC = () => {
   const [description, setDescription] = useState('')
   const [pet, setPet] = useState('')
   const [petList, setPetList] = useState([] as Pet[])
+  const [isPublished, setIsPublished] = useState('')
 
   useEffect(() => {
     // TODO:DBからfetchでpetを取得する
@@ -75,6 +77,10 @@ const PostEdit: FC = () => {
 
   const handleDescriptionChange = (event: ChangeEvent<{ value: unknown }>) => {
     setDescription(event.target.value as string)
+  }
+
+  const handleIsPublishedChange = (event: ChangeEvent<{ value: unknown }>) => {
+    setIsPublished(event.target.value as string)
   }
 
   return (
@@ -114,6 +120,30 @@ const PostEdit: FC = () => {
           value={description}
           onChange={handleDescriptionChange}
         />
+        <FormControl className={classes.formControl}>
+          <InputLabel id='select-is-published-label'>
+            公開・非公開
+          </InputLabel>
+          <Select
+            labelId='select-is-published-label'
+            id='select-is-published'
+            value={isPublished}
+            onChange={handleIsPublishedChange}
+          >
+            <MenuItem
+              key={1}
+              value='true'
+            >
+              公開
+            </MenuItem>
+            <MenuItem
+              key={2}
+              value='false'
+            >
+              非公開
+            </MenuItem>
+          </Select>
+        </FormControl>
       </div>
     </Container>
   )
