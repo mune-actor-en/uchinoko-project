@@ -8,6 +8,7 @@ import React, {
 // Material-UI
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
+  Button,
   Container,
   FormControl,
   IconButton,
@@ -49,6 +50,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     textField: {
       marginBottom: 24,
+      width: '100%',
+    },
+    button: {
       width: '100%',
     },
   })
@@ -144,6 +148,15 @@ const PostEdit: FC = () => {
             </MenuItem>
           </Select>
         </FormControl>
+        <Button
+          className={classes.button}
+          color='primary'
+          onClick={() => alert('clicked.')}
+          size='large'
+          variant='contained'
+        >
+          投稿
+        </Button>
       </div>
     </Container>
   )
