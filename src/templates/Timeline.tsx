@@ -7,7 +7,9 @@ import { Header } from '../components/Header';
 
 const useStyles = makeStyles(() => 
   createStyles({
-
+    root: {
+      
+    }
   })
 )
 
@@ -15,11 +17,12 @@ type Props = {
   name?: string
 }
 
-const Timeline:FC<Props> = ({name}) => {
+const Timeline: FC<Props> = ({ name }) => {
+  const classes = useStyles();
   return (
     <>
     <Header />
-      <div>{name}</div>
+      <div className={classes.root}>{name}</div>
    </>   
   );
 }
