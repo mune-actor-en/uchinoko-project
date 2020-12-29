@@ -58,6 +58,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
+const fetchPets = async () => {
+  const url = 'http://localhost:8080/api/v1/pets'
+  const res = await fetch(url)
+  const convertedData = await res.json()
+  const pets = convertedData.data
+  return pets
+}
+
 const PostEdit: FC = () => {
   const classes = useStyles()
   
@@ -67,12 +75,10 @@ const PostEdit: FC = () => {
   const [isPublished, setIsPublished] = useState('')
 
   useEffect(() => {
-    // TODO:DBからfetchでpetを取得する
-    const petList = []
-    petList.push({id: 1, name: 'pet1'})
-    petList.push({id: 2, name: 'pet2'})
-    petList.push({ id: 3, name: 'pet3' })
-    setPetList([...petList])
+    (async () => {
+      const pets = await fetchPets()
+      setPetList([...pets])
+    })()
   }, [])
 
   const handlePetChange = (event: ChangeEvent<{ value: unknown }>) => {
