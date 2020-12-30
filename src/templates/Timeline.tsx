@@ -3,7 +3,8 @@ import React, { FC } from 'react';
 // Material-UI
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 // Components
-import { Header } from '../components/Header';
+import { Header } from './UIKit';
+import { Content } from './UIKit/Timeline/index'
 
 const useStyles = makeStyles(() => 
   createStyles({
@@ -21,7 +22,8 @@ const Timeline: FC<Props> = ({ name }) => {
   const classes = useStyles();
   return (
     <>
-    <Header />
+      <Header />
+      < Content />
       <div className={classes.root}>{name}</div>
    </>   
   );
