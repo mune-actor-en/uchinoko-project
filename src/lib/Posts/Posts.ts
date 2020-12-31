@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:8080/api/v1/posts'
 
-export const postData = async (token: string, postData: string) => {
+export const savePost = async (token: string, postData: string) => {
   const url = `${BASE_URL}`
   // TODO:reduxからtokenを取得する
   const headers = {

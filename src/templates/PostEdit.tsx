@@ -20,14 +20,14 @@ import {
   TextField,
   Theme,
 } from '@material-ui/core'
-// Firebase
-import { storage } from '../firebase'
 // Icons
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+// Firebase
+import { storage } from '../firebase'
 // lib
 import { generateRandomString } from '../lib/Util'
 import { fetchPets } from '../lib/Pets'
-import { postData } from '../lib/Posts'
+import { savePost } from '../lib/Posts'
 // types
 import { Pet, Post } from '../types'
 
@@ -108,15 +108,13 @@ const PostEdit: FC = () => {
     setPetId(id)
   }, [setPet, setPetId])
 
-  // TODO:useCallbackに変更する
-  const handleDescriptionChange = (event: ChangeEvent<{ value: unknown }>) => {
-    setDescription(event.target.value as string)
-  }
+  const handleDescriptionChange = useCallback(e => {
+    setDescription(e.target.value)
+  }, [setDescription])
 
-  // TODO:useCallbackに変更する
-  const handleIsPublishedChange = (event: ChangeEvent<{ value: unknown }>) => {
-    setIsPublished(event.target.value as string)
-  }
+  const handleIsPublishedChange = useCallback(e => {
+    setIsPublished(e.target.value)
+  }, [setIsPublished])
 
   const uploadImage = useCallback(e => {
     // Setting file
@@ -136,7 +134,7 @@ const PostEdit: FC = () => {
     })
   }, [setImagePath])
 
-  const savePost = () => {
+  const submitPost = () => {
     console.log('submit button pushed.')
     // TODO:reduxからuserIdを取得する
     const userId = 1
@@ -152,7 +150,7 @@ const PostEdit: FC = () => {
     const convertedPost = JSON.stringify(post);
 
     (async () => {
-      const res = await postData(token, convertedPost)
+      const res = await savePost(token, convertedPost)
       console.log(res.status)
     })()
   };
@@ -236,7 +234,7 @@ const PostEdit: FC = () => {
         <Button
           className={classes.button}
           color='primary'
-          onClick={savePost}
+          onClick={submitPost}
           size='large'
           variant='contained'
         >
