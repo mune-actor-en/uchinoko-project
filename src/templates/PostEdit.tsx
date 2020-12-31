@@ -25,7 +25,7 @@ import { storage } from '../firebase'
 // Icons
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 // types
-import { Pet } from '../types'
+import { Pet, Post } from '../types'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,12 +78,40 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
+const BASE_URL = 'http://localhost:8080/api/v1'
+
+// TODO:ライブラリ化する
 const fetchPets = async () => {
-  const url = 'http://localhost:8080/api/v1/pets'
+  const url = `${BASE_URL}/pets`
   const res = await fetch(url)
   const convertedData = await res.json()
   const pets = convertedData.data
   return pets
+}
+
+// TODO:ライブラリ化する
+const postData = async (postData: string) => {
+  const url = `${BASE_URL}/posts`
+  // TODO:reduxからtokenを取得する
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA5MDY3MjM1LCJleHAiOjE2MDk5MzEyMzV9.eh0FNGBIoyccpRHW1t57kuuaU8YFpJU-Ul4-kF_uytg'
+  const headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'authorization': `Bearer ${token}`
+  }
+
+  const res = await fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: headers,
+    body: postData,
+  })
+
+  const convertedData = await res.json()
+  console.log(convertedData)
+
+  // TODO:成功したらリダイレクトする
 }
 
 const PostEdit: FC = () => {
@@ -91,10 +119,12 @@ const PostEdit: FC = () => {
   
   const [description, setDescription] = useState('')
   const [pet, setPet] = useState('')
+  const [petId, setPetId] = useState(0)
   const [petList, setPetList] = useState([] as Pet[])
   const [isPublished, setIsPublished] = useState('')
   const [imagePath, setImagePath] = useState('');
 
+  // APIからうちの子一覧を取得します
   useEffect(() => {
     (async () => {
       const pets = await fetchPets()
@@ -102,14 +132,18 @@ const PostEdit: FC = () => {
     })()
   }, [])
 
-  const handlePetChange = (event: ChangeEvent<{ value: unknown }>) => {
-    setPet(event.target.value as string)
-  }
+  const handlePetChange = useCallback(e => {
+    const id = e.target.value
+    setPet(id)
+    setPetId(id)
+  }, [setPet, setPetId])
 
+  // TODO:useCallbackに変更する
   const handleDescriptionChange = (event: ChangeEvent<{ value: unknown }>) => {
     setDescription(event.target.value as string)
   }
 
+  // TODO:useCallbackに変更する
   const handleIsPublishedChange = (event: ChangeEvent<{ value: unknown }>) => {
     setIsPublished(event.target.value as string)
   }
@@ -118,6 +152,7 @@ const PostEdit: FC = () => {
     const file = e.target.files
     let blob = new Blob(file, { type: 'image/jpeg' })
 
+    // TODO:utilityにまとめる
     // Generate random 16 digits strings
     const S = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const N = 16;
@@ -135,6 +170,26 @@ const PostEdit: FC = () => {
       })
     })
   }, [setImagePath])
+
+  const savePost = () => {
+    console.log('submit button pushed.')
+    // TODO:reduxからuserIdを取得する
+    const userId = 1
+
+    const post: Post = {
+      imagePath: imagePath,
+      description: description,
+      isPublished: isPublished === 'true' ? true : false,
+      userId: userId,
+      petId: petId,
+    }
+
+    const convertedPost = JSON.stringify(post);
+
+    (async () => {
+      await postData(convertedPost)
+    })()
+  };
 
   return (
     <Container component='main' maxWidth='md'>
@@ -172,7 +227,7 @@ const PostEdit: FC = () => {
             {petList.map(pet => (
               <MenuItem
                 key={pet.id}
-                value={pet.name}
+                value={pet.id}
               >
                 {pet.name}
               </MenuItem>
@@ -215,7 +270,7 @@ const PostEdit: FC = () => {
         <Button
           className={classes.button}
           color='primary'
-          onClick={() => alert('clicked.')}
+          onClick={savePost}
           size='large'
           variant='contained'
         >
