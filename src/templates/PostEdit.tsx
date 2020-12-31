@@ -24,6 +24,8 @@ import {
 import { storage } from '../firebase'
 // Icons
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+// lib
+import { fetchPets } from '../lib/Pets'
 // types
 import { Pet, Post } from '../types'
 
@@ -79,15 +81,6 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const BASE_URL = 'http://localhost:8080/api/v1'
-
-// TODO:ライブラリ化する
-const fetchPets = async () => {
-  const url = `${BASE_URL}/pets`
-  const res = await fetch(url)
-  const convertedData = await res.json()
-  const pets = convertedData.data
-  return pets
-}
 
 // TODO:ライブラリ化する
 const postData = async (postData: string) => {
