@@ -25,6 +25,7 @@ import { storage } from '../firebase'
 // Icons
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 // lib
+import { generateRandomString } from '../lib/Util'
 import { fetchPets } from '../lib/Pets'
 import { postData } from '../lib/Posts'
 // types
@@ -117,24 +118,19 @@ const PostEdit: FC = () => {
     setIsPublished(event.target.value as string)
   }
 
-  const uploadImage = useCallback( e => {
+  const uploadImage = useCallback(e => {
+    // Setting file
     const file = e.target.files
     let blob = new Blob(file, { type: 'image/jpeg' })
+    const fileName = generateRandomString()
 
-    // TODO:utilityにまとめる
-    // Generate random 16 digits strings
-    const S = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const N = 16;
-    const fileName = Array.from(crypto.getRandomValues(new Uint32Array(N))).map(n => S[n%S.length]).join('')
-
+    // Setting Cloud Firestore
     const uploadRef = storage.ref('image').child(fileName)
     const uploadTask = uploadRef.put(blob)
 
-    console.log(fileName)
-
+    // Save to Firestore
     uploadTask.then(() => {
       uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-        console.log(downloadURL)
         setImagePath(downloadURL)
       })
     })
