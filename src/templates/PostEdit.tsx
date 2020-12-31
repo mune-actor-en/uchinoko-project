@@ -26,6 +26,7 @@ import { storage } from '../firebase'
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 // lib
 import { fetchPets } from '../lib/Pets'
+import { postData } from '../lib/Posts'
 // types
 import { Pet, Post } from '../types'
 
@@ -80,32 +81,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const BASE_URL = 'http://localhost:8080/api/v1'
-
-// TODO:ライブラリ化する
-const postData = async (postData: string) => {
-  const url = `${BASE_URL}/posts`
-  // TODO:reduxからtokenを取得する
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA5MDY3MjM1LCJleHAiOjE2MDk5MzEyMzV9.eh0FNGBIoyccpRHW1t57kuuaU8YFpJU-Ul4-kF_uytg'
-  const headers = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    'authorization': `Bearer ${token}`
-  }
-
-  const res = await fetch(url, {
-    method: 'POST',
-    mode: 'cors',
-    credentials: 'include',
-    headers: headers,
-    body: postData,
-  })
-
-  const convertedData = await res.json()
-  console.log(convertedData)
-
-  // TODO:成功したらリダイレクトする
-}
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA5MDY3MjM1LCJleHAiOjE2MDk5MzEyMzV9.eh0FNGBIoyccpRHW1t57kuuaU8YFpJU-Ul4-kF_uytg'
 
 const PostEdit: FC = () => {
   const classes = useStyles()
@@ -180,7 +156,8 @@ const PostEdit: FC = () => {
     const convertedPost = JSON.stringify(post);
 
     (async () => {
-      await postData(convertedPost)
+      const res = await postData(token, convertedPost)
+      console.log(res.status)
     })()
   };
 
