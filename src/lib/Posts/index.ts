@@ -1,0 +1,1 @@
+export { savePost } from './Posts'
