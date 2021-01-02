@@ -1,6 +1,5 @@
 // React
 import React, {
-  ChangeEvent,
   FC,
   useCallback,
   useEffect,
@@ -12,18 +11,16 @@ import {
   Button,
   Container,
   FormControl,
-  IconButton,
   InputLabel,
   MenuItem,
-  Paper,
   Select,
   TextField,
   Theme,
 } from '@material-ui/core'
-// Icons
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 // Firebase
 import { storage } from '../firebase'
+// components
+import { ImageUploader } from '../components/Posts'
 // lib
 import { generateRandomString } from '../lib/Util'
 import { fetchPets } from '../lib/Pets'
@@ -33,38 +30,7 @@ import { Pet, Post } from '../types'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    imagePaper: {
-      alignItems: 'flex-end',
-      backgroundColor: 'lightgray',
-      display: 'flex',
-      height: 300,
-      justifyContent: 'flex-end',
-      margin: '36px auto 36px',
-      position: 'relative',
-      width: 300,
-    },
-    postImage: {
-      height: '100%',
-      objectFit: 'cover',
-      width: '100%',
-    },
-    cameraIcon: {
-      backgroundColor: 'darkgray',
-      height: 48,
-      marginRight: 8,
-      marginBottom: 8,
-      position: 'absolute',
-      right: 0,
-      bottom: 0,
-      width: 48,
-    },
-    iconLabel: {
-      height: 24,
-    },
-    photoInput: {
-      display: 'none',
-    },
-    formWrapper: {
+   formWrapper: {
       margin: '0px auto',
       maxWidth: 600,
     },
@@ -116,6 +82,7 @@ const PostEdit: FC = () => {
     setIsPublished(e.target.value)
   }, [setIsPublished])
 
+  // 投稿画像をFirestoreに保存します
   const uploadImage = useCallback(e => {
     // Setting file
     const file = e.target.files
@@ -157,26 +124,10 @@ const PostEdit: FC = () => {
 
   return (
     <Container component='main' maxWidth='md'>
-      <Paper className={classes.imagePaper}>
-        {imagePath && (
-          <img
-            alt='post'
-            className={classes.postImage}
-            src={imagePath}
-          />
-        )}
-        <IconButton className={classes.cameraIcon}>
-          <label className={classes.iconLabel}>
-            <PhotoCameraIcon />
-            <input
-              className={classes.photoInput}
-              id='uploadIcon'
-              onChange={e => uploadImage(e)}
-              type='file'
-            />
-          </label>
-        </IconButton>
-      </Paper>
+      <ImageUploader
+        imagePath={imagePath}
+        setImagePath={setImagePath}
+      />
       <div className={classes.formWrapper}>
         <FormControl className={classes.formControl}>
           <InputLabel id='select-pet-label'>
