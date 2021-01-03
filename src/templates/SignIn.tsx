@@ -1,6 +1,10 @@
-//React
+// React
 import React, { FC, useState, useCallback } from 'react';
-//Material-UI
+// Redux
+import { useDispatch, useSelector } from 'react-redux'
+import { signIn } from '../reducks/users/operations'
+import { getEmail, getToken, getUserId } from '../reducks/users/selectors'
+// Material-UI
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -8,6 +12,8 @@ import TextField from '@material-ui/core/TextField';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+// lib
+// import { siginIn } from '../lib/Auth'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,13 +32,36 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type Props = {
-  email: string;
-  password: string;
-};
+// type Props = {
+//   email: string;
+//   password: string;
+// };
 
-const SignIn: FC<Props> = ({email, password }) => {
+const SignIn: FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch()
+  const selector = useSelector(state => state)
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleEmailChange = useCallback(e => {
+    setEmail(e.target.value)
+  }, [setEmail])
+
+  const handlePasswordChange = useCallback(e => {
+    setPassword(e.target.value)
+  }, [setPassword])
+
+  const onClickSubmit = () => {
+    dispatch(signIn(email, password))
+    const stateEmail = getEmail(selector)
+    const token = getToken(selector)
+    const uid = getUserId(selector)
+    console.log(`email is ${stateEmail}`)
+    console.log(`uid is ${uid}`)
+    console.log(`token is ${token}`)
+  }
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -52,6 +81,7 @@ const SignIn: FC<Props> = ({email, password }) => {
             name={email}
             autoComplete='email'
             autoFocus
+            onChange={e => handleEmailChange(e)}
           />
           <TextField
             variant='outlined'
@@ -63,14 +93,17 @@ const SignIn: FC<Props> = ({email, password }) => {
             type='password'
             id='password'
             autoComplete='current-password'
+            onChange={e => handlePasswordChange(e)}
           />
           <Button
-            type='submit'
+            // type='submit'
             fullWidth
             variant='contained'
             color='primary'
             className={classes.submit}
             endIcon={<TouchAppIcon />}
+            // onClick={() => dispatch(signIn(email, password))}
+            onClick={onClickSubmit}
           >
             サインイン
           </Button>
