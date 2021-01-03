@@ -58,7 +58,7 @@ const SignIn: FC = () => {
     const stateEmail = getEmail(selector)
     const token = getToken(selector)
     const uid = getUserId(selector)
-    console.log(`emal is ${stateEmail}`)
+    console.log(`email is ${stateEmail}`)
     console.log(`uid is ${uid}`)
     console.log(`token is ${token}`)
   }
