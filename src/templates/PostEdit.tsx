@@ -5,6 +5,9 @@ import React, {
   useEffect,
   useState,
 } from 'react'
+// Redux
+import { useSelector } from 'react-redux'
+import { getToken, getUserId } from '../reducks/users/selectors'
 // Material-UI
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
@@ -38,16 +41,16 @@ const useStyles = makeStyles(() =>
 )
 
 const PostEdit: FC = () => {
+  // Styles
   const classes = useStyles()
+  // Redux
+  const selector = useSelector(state => state)
   
-  // TODO:ReduxからTokenをとってくる
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA5MDY3MjM1LCJleHAiOjE2MDk5MzEyMzV9.eh0FNGBIoyccpRHW1t57kuuaU8YFpJU-Ul4-kF_uytg'
-
   const [description, setDescription] = useState('')
   const [pet, setPet] = useState('')
-  const [petId, setPetId] = useState(0)
+  const [petId, setPetId] = useState('')
   const [petList, setPetList] = useState([] as Pet[])
-  const [isPublished, setIsPublished] = useState(0)
+  const [isPublished, setIsPublished] = useState('')
   const [imagePath, setImagePath] = useState('');
 
   // APIからうちの子一覧を取得します
@@ -59,7 +62,7 @@ const PostEdit: FC = () => {
   }, [])
 
   const handlePetChange = useCallback(e => {
-    const id = e.target.value
+    const id = e.target.value as string
     setPet(id)
     setPetId(id)
   }, [setPet, setPetId])
@@ -69,8 +72,7 @@ const PostEdit: FC = () => {
   }, [setDescription])
 
   const handleIsPublishedChange = useCallback(e => {
-    console.log(e.target.value === 1)
-    setIsPublished(e.target.value)
+    setIsPublished(e.target.value as string)
   }, [setIsPublished])
 
   const isPublishedList = [
@@ -85,15 +87,15 @@ const PostEdit: FC = () => {
   ]
 
   const submitPost = () => {
-    // TODO:reduxからuserIdを取得する
-    const userId = 1
+    const userId = getUserId(selector)
+    const token = getToken(selector)
 
     const post: Post = {
       imagePath: imagePath,
       description: description,
-      isPublished: isPublished === 1 ? true : false,
+      isPublished: isPublished === '1' ? true : false,
       userId: userId,
-      petId: petId,
+      petId: parseInt(petId),
     }
 
     const convertedPost = JSON.stringify(post);

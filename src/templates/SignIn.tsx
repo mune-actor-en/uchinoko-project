@@ -1,9 +1,10 @@
 // React
 import React, { FC, useState, useCallback } from 'react';
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { signIn } from '../reducks/users/operations'
-import { getEmail, getToken, getUserId } from '../reducks/users/selectors'
+// Router
+import { push } from 'connected-react-router'
 // Material-UI
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,8 +13,6 @@ import TextField from '@material-ui/core/TextField';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-// lib
-// import { siginIn } from '../lib/Auth'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -40,7 +39,6 @@ const useStyles = makeStyles(() =>
 const SignIn: FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch()
-  const selector = useSelector(state => state)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -55,17 +53,14 @@ const SignIn: FC = () => {
 
   const onClickSubmit = () => {
     dispatch(signIn(email, password))
-    const stateEmail = getEmail(selector)
-    const token = getToken(selector)
-    const uid = getUserId(selector)
-    console.log(`email is ${stateEmail}`)
-    console.log(`uid is ${uid}`)
-    console.log(`token is ${token}`)
   }
 
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
+      <Typography onClick={() => dispatch(push('/post/edit'))}>
+        post
+      </Typography>
       <div className={classes.top}>
         <Typography component='h1' variant='h5' align='center'>
           サインイン

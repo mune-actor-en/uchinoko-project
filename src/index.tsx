@@ -12,6 +12,10 @@ import reportWebVitals from './reportWebVitals';
 const history = History.createBrowserHistory()
 export const store = createStore(history)
 
+store.subscribe(() => {
+  console.log(store.getState())
+})
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
