@@ -16,6 +16,7 @@ const Router: FC = () => {
       <Route exact path='/signin' component={SignIn} />
       <Route exact path='/signup' component={SignUp} />
       <Route path='/post/edit(/:id)?' component={PostEdit} />
+      <Route exact path='/timeline' component={TimeLine} />
     </Switch>
   )
 }

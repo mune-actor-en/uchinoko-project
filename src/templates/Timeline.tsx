@@ -3,8 +3,7 @@ import React, { FC } from 'react';
 // Material-UI
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 // Components
-import { Header } from './UIKit';
-import { Content } from './UIKit/Timeline/index'
+import { Content, Header } from './index'
 
 const useStyles = makeStyles(() => 
   createStyles({

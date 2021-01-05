@@ -14,7 +14,7 @@ import Popper from '@material-ui/core/Popper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 // Logo
-import Logo from '../../assets/img/icoms/uchinoko-logo.png';
+import Logo from '../assets/img/icoms/uchinoko-logo.png';
 
 const useStyles = makeStyles(() =>
   createStyles({
