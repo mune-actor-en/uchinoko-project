@@ -1,6 +1,11 @@
-//React
+// React
 import React, { FC, useState, useCallback } from 'react';
-//Material-UI
+// Redux
+import { useDispatch } from 'react-redux'
+import { signIn } from '../reducks/users/operations'
+// Router
+import { push } from 'connected-react-router'
+// Material-UI
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -26,17 +31,36 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type Props = {
-  email: string;
-  password: string;
-};
+// type Props = {
+//   email: string;
+//   password: string;
+// };
 
-const SignIn: FC<Props> = ({email, password }) => {
+const SignIn: FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleEmailChange = useCallback(e => {
+    setEmail(e.target.value)
+  }, [setEmail])
+
+  const handlePasswordChange = useCallback(e => {
+    setPassword(e.target.value)
+  }, [setPassword])
+
+  const onClickSubmit = () => {
+    dispatch(signIn(email, password))
+  }
 
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
+      <Typography onClick={() => dispatch(push('/post/edit'))}>
+        post
+      </Typography>
       <div className={classes.top}>
         <Typography component='h1' variant='h5' align='center'>
           サインイン
@@ -52,6 +76,7 @@ const SignIn: FC<Props> = ({email, password }) => {
             name={email}
             autoComplete='email'
             autoFocus
+            onChange={e => handleEmailChange(e)}
           />
           <TextField
             variant='outlined'
@@ -63,14 +88,17 @@ const SignIn: FC<Props> = ({email, password }) => {
             type='password'
             id='password'
             autoComplete='current-password'
+            onChange={e => handlePasswordChange(e)}
           />
           <Button
-            type='submit'
+            // type='submit'
             fullWidth
             variant='contained'
             color='primary'
             className={classes.submit}
             endIcon={<TouchAppIcon />}
+            // onClick={() => dispatch(signIn(email, password))}
+            onClick={onClickSubmit}
           >
             サインイン
           </Button>
