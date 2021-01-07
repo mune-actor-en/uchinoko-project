@@ -32,8 +32,8 @@ const Profile: FC = () => {
   // state
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [isNameError, setIsNameError] = useState(false)
+  const [isEmailError, setIsEmailError] = useState(false)
 
   // handle change
   const handleNameChange = useCallback(e => {
@@ -44,16 +44,17 @@ const Profile: FC = () => {
     setEmail(e.target.value)
   }, [setEmail])
 
-  const handlePasswordChange = useCallback(e => {
-    setPassword(e.target.value)
-  }, [setPassword])
-
-  const handleConfirmPasswordChange = useCallback(e => {
-    setConfirmPassword(e.target.value)
-  }, [setConfirmPassword])
-
   const submitUser = () => {
-    alert('submit button clicked.')
+    const isNameBlank = name === '' ? true : false
+    const isEmailBlank = email === '' ? true : false
+    setIsNameError(isNameBlank)
+    setIsEmailError(isEmailBlank)
+
+    if (isNameBlank || isEmailBlank) {
+      return
+    }
+
+    console.log('submit done.')
   }
 
   return (
@@ -71,6 +72,7 @@ const Profile: FC = () => {
           プロフィールを編集
         </Typography>
         <TextField
+          error={isNameError}
           fullWidth
           id='name'
           label='名前'
@@ -81,6 +83,7 @@ const Profile: FC = () => {
           variant='outlined'
         />
         <TextField
+          error={isEmailError}
           fullWidth
           id='email'
           label='メールアドレス'
@@ -89,26 +92,6 @@ const Profile: FC = () => {
           required
           type='email'
           value={email}
-          variant='outlined'
-        />
-        <TextField
-          fullWidth
-          id='password'
-          label='パスワード'
-          margin='normal'
-          onChange={e => handlePasswordChange(e)}
-          type='password'
-          value={password}
-          variant='outlined'
-        />
-        <TextField
-          fullWidth
-          id='confirmPassword'
-          label='パスワード（確認用）'
-          margin='normal'
-          onChange={e => handleConfirmPasswordChange(e)}
-          type='password'
-          value={confirmPassword}
           variant='outlined'
         />
         <Button
