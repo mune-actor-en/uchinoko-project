@@ -61,6 +61,10 @@ const SignIn: FC = () => {
       <Typography onClick={() => dispatch(push('/post/edit'))}>
         post
       </Typography>
+      <Typography onClick={() => dispatch(push('/profile/1'))}>
+        profile
+      </Typography>
+
       <div className={classes.top}>
         <Typography component='h1' variant='h5' align='center'>
           サインイン
