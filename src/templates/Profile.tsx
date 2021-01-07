@@ -1,5 +1,10 @@
 // React
-import React, { FC, useCallback, useState } from 'react'
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 // Material-UI
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
@@ -8,6 +13,11 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
+// lib
+import { fetchUser } from '../lib/Users'
+import { useSelector } from 'react-redux';
+import { getToken } from '../reducks/users/selectors';
+import { saveUser } from '../lib/Users/Users';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -29,11 +39,28 @@ const Profile: FC = () => {
   // styles
   const classes = useStyles()
 
+  // Redux
+  const selector = useSelector(state => state)
+
+  // Params
+  const path = window.location.href
+  const id = path.split('/profile/')[1]
+
   // state
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [isNameError, setIsNameError] = useState(false)
   const [isEmailError, setIsEmailError] = useState(false)
+
+  useEffect(() => {
+    // APIからプロフィールを取得
+    (async () => {
+      const user = await fetchUser(id)
+      console.log(user)
+      setName(user.name)
+      setEmail(user.email)
+    })()
+  }, [])
 
   // handle change
   const handleNameChange = useCallback(e => {
@@ -44,6 +71,7 @@ const Profile: FC = () => {
     setEmail(e.target.value)
   }, [setEmail])
 
+  // submit
   const submitUser = () => {
     const isNameBlank = name === '' ? true : false
     const isEmailBlank = email === '' ? true : false
@@ -54,7 +82,14 @@ const Profile: FC = () => {
       return
     }
 
-    console.log('submit done.')
+    // reduxからtokenを取得
+    const token = getToken(selector);
+
+    // APIに保存
+    (async () => {
+      const res = await saveUser(token, id, name, email)
+      console.log(res.status)
+    })()
   }
 
   return (
