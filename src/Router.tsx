@@ -5,9 +5,9 @@ import { Route, Switch } from 'react-router'
 // templates
 import {
   PostEdit,
+  Profile,
   SignIn,
   SignUp,
-  TimeLine
 } from './templates'
 
 const Router: FC = () => {
@@ -16,7 +16,7 @@ const Router: FC = () => {
       <Route exact path='/signin' component={SignIn} />
       <Route exact path='/signup' component={SignUp} />
       <Route path='/post/edit(/:id)?' component={PostEdit} />
-      <Route exact path='/timeline' component={TimeLine} />
+      <Route path='/profile(/:id)?' component={Profile} />
     </Switch>
   )
 }
