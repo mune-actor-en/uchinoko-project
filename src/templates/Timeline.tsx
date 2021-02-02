@@ -13,17 +13,13 @@ const useStyles = makeStyles(() =>
   })
 )
 
-type Props = {
-  name?: string
-}
-
-const Timeline: FC<Props> = ({ name }) => {
+const Timeline: FC = () => {
   const classes = useStyles();
   return (
     <>
       <Header />
       < Content description={"詳細"} title={"テスト"} postDate={'2020/12/31'} path={''}/>
-      <div className={classes.root}>{name}</div>
+      <div className={classes.root}></div>
    </>   
   );
 }
