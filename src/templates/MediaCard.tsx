@@ -41,7 +41,8 @@ const MediaCard: FC<Props> = ({
 }) => {
     const classes = useStyles();
 
-    const getStringFromDate = (date: Date) => {
+    const getStringFromDate = (baseDate: Date) => {
+        const date = new Date(baseDate);
         return (date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate());
     };
 

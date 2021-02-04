@@ -1,29 +1,41 @@
 // React
-import React, { FC } from 'react';
+import React, {
+    FC,
+    useEffect,
+    useState,
+} from 'react'
 // Components
 import { MediaCard, Header } from './index'
-// img
-import dog from '../assets/img/aa_617_01.jpg'
-
-enum Sex {
-    MALE = 'male',
-    FEMALE = 'female',
-}
+// types
+import { Pet } from '../types/index'
+// lib
+import { fetchPets } from '../lib/Pets'
 
 const PetsList: FC = () => {
-    const date = new Date('2019/01/01');
+    const [petList, setPetList] = useState([] as Pet[])
+
+    // APIからうちの子一覧を取得します
+    useEffect(() => {
+        (async () => {
+            const pets = await fetchPets()
+            setPetList([...pets])
+        })()
+    }, [])
 
     return (
         <>
             <Header />
-            <MediaCard
-                imagePath={dog}
-                name='太郎'
-                sex={Sex.MALE}
-                birthday={date}
-                pickupDate={date}
-                recomend='test'
-            />
+            {petList.map((pet, index) => {
+                return <MediaCard
+                    imagePath={pet.imagePath}
+                    name={pet.name}
+                    sex={pet.sex}
+                    birthday={pet.birthday}
+                    pickupDate={pet.pickupDate}
+                    recomend='test'
+                    key={index.toString()}
+                />
+            })}
         </>
     )
 }
