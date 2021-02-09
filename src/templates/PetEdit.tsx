@@ -102,8 +102,8 @@ const PetEdit: FC = () => {
     }, [setRecomend])
 
     const submitEditedPet = () => {
-        const userId = getUserId(selector)
-        const token = getToken(selector)
+        const userId = getUserId(selector);
+        const token = getToken(selector);
 
         const pet: Pet = {
             name: name,
@@ -124,7 +124,7 @@ const PetEdit: FC = () => {
     };
 
     const submitDeletedPet = () => {
-        const token = getToken(selector)
+        const token = getToken(selector);
 
         (async () => {
             const res = await deletePet(id, token)
