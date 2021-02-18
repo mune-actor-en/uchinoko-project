@@ -5,3 +5,7 @@ export { default as SignIn } from './SignIn'
 export { default as TimeLine } from './Timeline';
 export { default as Content } from './Content';
 export { default as Header } from './Header';
+export { default as PetRegist } from './PetRegist';
+export { default as PetsList } from './PetsList';
+export { default as MediaCard } from './MediaCard';
+export { default as PetEdit } from './PetEdit';

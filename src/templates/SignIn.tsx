@@ -64,6 +64,12 @@ const SignIn: FC = () => {
       <Typography onClick={() => dispatch(push('/profile/1'))}>
         profile
       </Typography>
+      <Typography onClick={() => dispatch(push('/pet/regist'))}>
+        pet-regist
+      </Typography>
+      <Typography onClick={() => dispatch(push('/petslist'))}>
+        pets-list
+      </Typography>
 
       <div className={classes.top}>
         <Typography component='h1' variant='h5' align='center'>
