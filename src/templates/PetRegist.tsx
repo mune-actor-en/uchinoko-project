@@ -92,7 +92,7 @@ const PetRegist: FC = () => {
             userId: userId,
             birthday: birthday,
             pickupDate: pickupDate,
-            attractive_feature: recomend,
+            attractiveFeature: recomend,
         }
 
         const convertedPet = JSON.stringify(pet);

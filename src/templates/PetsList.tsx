@@ -33,7 +33,7 @@ const PetsList: FC = () => {
                     sex={pet.sex}
                     birthday={pet.birthday}
                     pickupDate={pet.pickupDate}
-                    recomend='test'
+                    recomend={pet.attractiveFeature}
                     key={pet.id}
                 />
             })}

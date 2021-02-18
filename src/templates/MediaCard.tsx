@@ -4,7 +4,6 @@ import React, { FC } from 'react';
 import { useDispatch } from 'react-redux'
 // Router
 import { push } from 'connected-react-router'
-import { Link } from 'react-router-dom'
 // Material-UI
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -25,6 +24,9 @@ const useStyles = makeStyles({
     media: {
         height: 280,
     },
+    bold: {
+        fontWeight: 'bold',
+    }
 });
 
 type Props = {
@@ -62,30 +64,27 @@ const MediaCard: FC<Props> = ({
             onClick={() => dispatch(push('/pet/edit/' + id))}
         >
             <CardActionArea component="div" disableRipple>
-                {/* <Link to={'/pet/edit/' + id}> */}
-                    <CardMedia
-                        className={classes.media}
-                        image={imagePath}
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {name}
-                        </Typography>
-                        <Typography variant="subtitle1" component="p">
-                            性別：{sex === 'male' ? '♂' : '♀'}
-                        </Typography>
-                        <Typography variant="subtitle1" component="p">
-                            誕生日：{getStringFromDate(birthday)}
-                        </Typography>
-                        <Typography variant="subtitle1" component="p">
-                            お迎え日：{getStringFromDate(pickupDate)}
-                        </Typography>
-                        <Typography variant="subtitle1" component="p">
-                            うちの子の推しポイント：<br />
-                            {recomend}
-                        </Typography>
-                    </CardContent>
-                {/* </Link> */}
+                <CardMedia
+                    className={classes.media}
+                    image={imagePath}
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {name}
+                    </Typography>
+                    <Typography variant="subtitle1" component="p">
+                        <span className={classes.bold}>性別</span>：{sex === 'male' ? '♂' : '♀'}
+                    </Typography>
+                    <Typography variant="subtitle1" component="p">
+                        <span className={classes.bold}>誕生日</span>：{getStringFromDate(birthday)}
+                    </Typography>
+                    <Typography variant="subtitle1" component="p">
+                        <span className={classes.bold}>お迎え日</span>：{getStringFromDate(pickupDate)}
+                    </Typography>
+                    <Typography variant="subtitle1" component="p">
+                        <span className={classes.bold}>うちの子の推しポイント</span>：{recomend}
+                    </Typography>
+                </CardContent>
             </CardActionArea>
         </Card>
     )

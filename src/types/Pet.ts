@@ -6,7 +6,7 @@ export type Pet = {
   userId: number
   birthday: Date
   pickupDate: Date
-  attractive_feature: string
+  attractiveFeature: string
   createdAt?: Date
   updatedAt?: Date
 }
