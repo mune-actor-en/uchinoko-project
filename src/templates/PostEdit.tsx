@@ -113,12 +113,12 @@ const PostEdit: FC = () => {
         setImagePath={setImagePath}
       />
       <div className={classes.formWrapper}>
-        {/* <SelectWithLabel
+        <SelectWithLabel
           label='うちの子選択'
           options={ petList }
           onChange={ handlePetChange }
           value={ pet }
-        /> */}
+        />
         <TextField
           id='description'
           className={classes.textField}

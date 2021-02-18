@@ -77,6 +77,7 @@ const PetEdit: FC = () => {
                 setSex(pet.sex)
                 setBirthday(pet.birthday)
                 setPickupDate(pet.pickupDate)
+                setRecomend(pet.attractiveFeature)
             })()
         }
     }, [id])
@@ -112,7 +113,7 @@ const PetEdit: FC = () => {
             userId: userId,
             birthday: birthday,
             pickupDate: pickupDate,
-            attractive_feature: recomend,
+            attractiveFeature: recomend,
         }
 
         const convertedPet = JSON.stringify(pet);
