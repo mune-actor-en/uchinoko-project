@@ -22,7 +22,7 @@ import { SelectWithLabel } from '../components/UIKit'
 import { fetchPets } from '../lib/Pets'
 import { savePost } from '../lib/Posts'
 // types
-import { Pet, Post } from '../types'
+import { Option, Pet, Post } from '../types'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -49,7 +49,7 @@ const PostEdit: FC = () => {
   const [description, setDescription] = useState('')
   const [pet, setPet] = useState('')
   const [petId, setPetId] = useState('')
-  const [petList, setPetList] = useState([] as Pet[])
+  const [optionList, setOptionList] = useState<Option[]>([])
   const [isPublished, setIsPublished] = useState('')
   const [imagePath, setImagePath] = useState('');
 
@@ -57,7 +57,15 @@ const PostEdit: FC = () => {
   useEffect(() => {
     (async () => {
       const pets = await fetchPets()
-      setPetList([...pets])
+      let optionData: Option[] = []
+      pets.map((pet: Pet) => {
+        const option: Option = {
+          id: pet.id ? pet.id : 0,
+          name: pet.name,
+        }
+        optionData.push(option)
+      })
+      setOptionList([...optionData])
     })()
   }, [])
 
@@ -115,7 +123,7 @@ const PostEdit: FC = () => {
       <div className={classes.formWrapper}>
         <SelectWithLabel
           label='うちの子選択'
-          options={ petList }
+          options={ optionList }
           onChange={ handlePetChange }
           value={ pet }
         />

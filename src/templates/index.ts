@@ -2,6 +2,10 @@ export { default as PostEdit } from './PostEdit'
 export { default as Profile } from './Profile'
 export { default as SignUp } from './SignUp'
 export { default as SignIn } from './SignIn'
-export { default as Timeline } from './Timeline';
+export { default as TimeLine } from './TimeLine';
 export { default as Content } from './Content';
 export { default as Header } from './Header';
+export { default as PetRegist } from './PetRegist';
+export { default as PetsList } from './PetsList';
+export { default as MediaCard } from './MediaCard';
+export { default as PetEdit } from './PetEdit';

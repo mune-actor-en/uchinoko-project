@@ -1,1 +1,5 @@
+export { fetchPet } from './Pets'
 export { fetchPets } from './Pets'
+export { savePets } from './Pets'
+export { editPets } from './Pets'
+export { deletePet } from './Pets'

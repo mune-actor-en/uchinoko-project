@@ -8,7 +8,10 @@ import {
   Profile,
   SignIn,
   SignUp,
-  Timeline,
+  PetRegist,
+  TimeLine,
+  PetsList,
+  PetEdit,
 } from './templates'
 
 const Router: FC = () => {
@@ -18,7 +21,10 @@ const Router: FC = () => {
       <Route exact path='/signup' component={SignUp} />
       <Route path='/post/edit(/:id)?' component={PostEdit} />
       <Route path='/profile(/:id)?' component={Profile} />
-      <Route exact path='/timeline' component={Timeline} />
+      <Route path='/pet/regist' component={PetRegist} />
+      <Route path='/timeline' component={TimeLine} />
+      <Route path='/petslist' component={PetsList} />
+      <Route path='/pet/edit(/:id)?' component={PetEdit} />
     </Switch>
   )
 }

@@ -1,1 +1,1 @@
-export { savePost } from './Posts'
+export { fetchPost ,savePost } from './Posts'
