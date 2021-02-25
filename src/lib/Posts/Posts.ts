@@ -4,7 +4,7 @@ const BASE_URL = 'http://localhost:8080/api/v1/posts'
   const url = `${BASE_URL}`
   const res = await fetch(url)
   const convertedData = await res.json()
-  const post = convertedData
+  const post = convertedData.data
   return post
 }
 

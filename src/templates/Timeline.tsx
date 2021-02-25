@@ -55,6 +55,7 @@ const TimeLine: FC = () => {
       <Header />
       {postList.map((post) => {
         return <PostContent
+            key={post.id}
             id={post.id}
             imagePath={post.imagePath}
             description={post.description}
